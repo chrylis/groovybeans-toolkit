@@ -1,0 +1,37 @@
+= GroovyBeans Toolkit
+
+Groovy makes writing JVM applications a lot simpler, but even though it removes a lot of the low-level boilerplate, a significant amount of "pattern" boilerplate often remains.
+Using Groovy's unique compile-time transformation facility, the GroovyBeans Toolkit provides macros that help automate common software patterns.
+All of the features in GBT are applied statically at compile-time and require no runtime dependencies or overhead except for the actual logic being executed.
+
+== Annotations
+
+`@GbtId` and `@GbtVersion`::
+Add simple JPA `Id` and `Version` properties to a class. Particularly useful for defining consistent project-wide settings as meta-annotations.
+
+`@TwoWayRelationship`::
+Transparently manages two-way relationships between classes (such as `@OneToOne`), ensuring that using the setter on either end results in a consistent state. Takes care of edge cases such as dangling replaced relationships.
+
+`@Subrecord` and `@SubrecordOf`::
+Manage the common pattern where a main table has special-purpose auxiliary subrecords, such as password-reset tokens for a user table. Automatically sets up ID mapping from the main class, a managed two-way relationship, and a JPA `@OneToOne` mapping.
+
+== Usage
+
+Add this Maven dependency to your project:
+
+```
+<parent>
+    <groupId>com.chrylis.groovybeans</groupId>
+    <artifactId>groovybeans-annotations</artifactId>
+    <version>${groovybeans.version}</version>
+</parent>
+```
+
+GBT does not need to be available at runtime, but if you're using annotation collectors, you may need to include it in multiple modules if you use `provided` scope.
+
+Examples of all of the transforms are available in the `-examples` module, and Spock specs for the transforms are intended to be readable.
+
+=== Eclipse
+
+NOTE: Since some of the transforms depend on compiling multiple classes at once, Eclipse's Groovy support will sometimes produce spurious errors in the code view.
+If they show up, they will generally go away on a clean-and-build.
