@@ -5,7 +5,7 @@
 
     <groupId>com.chrylis.groovybeans</groupId>
     <artifactId>groovybeans-toolkit-parent</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <packaging>pom</packaging>
     <name>GroovyBeans Toolkit</name>
     <description>tools for simplifying beans in Groovy</description>
@@ -61,7 +61,12 @@
             <artifactId>groovy-all</artifactId>
             <version>${groovy.version}</version>
             <type>pom</type>
+            <scope>provided</scope>
             <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.groovy</groupId>
+                    <artifactId>groovy-junit5</artifactId>
+                </exclusion>
                 <exclusion>
                     <groupId>org.codehaus.groovy</groupId>
                     <artifactId>groovy-testng</artifactId>
