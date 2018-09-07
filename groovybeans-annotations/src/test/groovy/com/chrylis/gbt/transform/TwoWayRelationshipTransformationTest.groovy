@@ -1,6 +1,6 @@
 package com.chrylis.gbt.transform
 
-import static jdk.internal.org.objectweb.asm.Opcodes.*
+import static groovyjarjarasm.asm.Opcodes.*
 import groovy.transform.CompileStatic
 
 import org.codehaus.groovy.ast.ClassHelper
