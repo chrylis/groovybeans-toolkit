@@ -34,5 +34,5 @@ public @interface GbtId {
      * In particular, generator annotations are likely candidates, allowing project-wide
      * meta-annotations such as {@code @MyProjectEntity} to be defined and reused.
      */
-    Class<? extends GroovyObject>[] annotationCollectors() default []
+    Class<?>[] annotationCollectors() default []
 }
