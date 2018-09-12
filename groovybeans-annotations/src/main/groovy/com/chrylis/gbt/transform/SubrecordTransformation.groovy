@@ -6,6 +6,7 @@ import static com.chrylis.gbt.transform.GbtUtils.getAnnotationParameterStringVal
 import static com.chrylis.gbt.transform.GbtUtils.getAnnotationParameterValueOrDefault
 import static com.chrylis.gbt.transform.SubrecordOfTransformation.MAIN_RECORD_FIELD_PARAMETER_NAME
 import static org.codehaus.groovy.ast.ClassHelper.make;
+import static org.codehaus.groovy.ast.expr.ConstantExpression.PRIM_TRUE
 import static org.codehaus.groovy.ast.tools.GeneralUtils.callThisX
 import static org.codehaus.groovy.ast.tools.GeneralUtils.classX
 import static org.codehaus.groovy.ast.tools.GeneralUtils.constX
@@ -22,6 +23,7 @@ import org.codehaus.groovy.ast.AnnotatedNode;
 import org.codehaus.groovy.ast.AnnotationNode;
 import org.codehaus.groovy.ast.ClassNode;
 import org.codehaus.groovy.ast.FieldNode;
+import org.codehaus.groovy.ast.expr.ConstantExpression
 import org.codehaus.groovy.ast.expr.Expression
 import org.codehaus.groovy.control.CompilePhase;
 import org.codehaus.groovy.transform.GroovyASTTransformation;
@@ -82,16 +84,18 @@ class SubrecordTransformation extends GbtTransformation<Subrecord> {
                 constX(getAnnotationParameterDefault(annotation, "cascade", CascadeType[])[0])
             )
         }
-        otoAnnotation.setMember("cascade", cascadeValue)
+        otoAnnotation.addMember("cascade", cascadeValue)
 
-        otoAnnotation.setMember("fetch",
+        otoAnnotation.addMember("fetch",
             propX(
                 classX(make(FetchType)),
                 constX(getAnnotationParameterValueOrDefault(annotation, "fetch", FetchType))
             )
         )
 
-        otoAnnotation.setMember("mappedBy", constX(mappedBy))
+        otoAnnotation.addMember("mappedBy", constX(mappedBy))
+
+        otoAnnotation.addMember("orphanRemoval", PRIM_TRUE)
 
         annotated.addAnnotation(otoAnnotation)
 

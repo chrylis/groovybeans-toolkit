@@ -52,7 +52,7 @@ import com.chrylis.gbt.transform.SubrecordTransformation
  * </pre></p>
  *
  * <p>Applying this annotation to a property on the main record applies {@link TwoWayRelationship},
- * and by default adds {@code @OneToOne(fetch = LAZY, cascade = ALL, mappedBy = "mainRecord")}.
+ * and by default adds {@code @OneToOne(fetch = LAZY, cascade = ALL, orphanRemoval = true, mappedBy = "mainRecord")}.
  * In addition, if {@code createIfMissing} is true, a default instance is assigned to the field.
  * While similar to initializing with {@code Sub sub = new Sub()}, this transformation ensures that
  * the bidirectional relationship is set. The code for this is inserted in an object initializer,

@@ -2,6 +2,8 @@ package com.chrylis.gbt.transform
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric
 
+import javax.persistence.OneToOne
+
 import com.chrylis.gbt.transform.entities.BigRecord
 import com.chrylis.gbt.transform.entities.SmallRecordA
 import com.chrylis.gbt.transform.entities.SmallRecordB
@@ -36,5 +38,8 @@ class SubrecordSpec extends Specification {
 
         then:
         big == b.mainRecord
+
+        and: "the main record's OneToOne specifies orphanRemoval"
+        BigRecord.getDeclaredField('a').getAnnotation(OneToOne).orphanRemoval()
     }
 }
